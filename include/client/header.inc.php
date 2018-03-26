@@ -42,6 +42,10 @@ if ($lang) {
     <link type="text/css" rel="stylesheet" href="<?php echo ROOT_PATH; ?>css/flags.css?9ae093d"/>
     <link type="text/css" rel="stylesheet" href="<?php echo ROOT_PATH; ?>css/rtl.css?9ae093d"/>
     <link type="text/css" rel="stylesheet" href="<?php echo ROOT_PATH; ?>css/select2.min.css?9ae093d"/>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="<?php echo ROOT_PATH; ?>assets/MaterialOs/css/material-kit.css?v=2.0.2">
     <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jquery-1.11.2.min.js?9ae093d"></script>
     <script type="text/javascript" src="<?php echo ROOT_PATH; ?>js/jquery-ui-1.10.3.custom.min.js?9ae093d"></script>
     <script src="<?php echo ROOT_PATH; ?>js/osticket.js?9ae093d"></script>
@@ -77,74 +81,95 @@ if ($lang) {
     }
     ?>
 </head>
-<body>
+<body class="profile-page ">
+    <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg " color-on-scroll="100" id="sectionsNav">
+        <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" id="logo" href="<?php echo ROOT_PATH; ?>index.php" title="<?php echo __('Support Center'); ?>">
+                    <?php echo $ost->getConfig()->getTitle(); ?>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <?php
+                    if($nav){ ?>
+                        <?php
+                        if($nav && ($navs=$nav->getNavLinks()) && is_array($navs)){
+                            foreach($navs as $name =>$nav) {
+                            echo sprintf('<li class="nav-item"><a class="nav-link %s %s" href="%s">%s</a></li>%s',$nav['active']?'active':'',$name,(ROOT_PATH.$nav['href']),$nav['desc'],"\n");
+                            }
+                        } ?>
+                    <?php
+                    }?>
+                    <?php
+                        if ($thisclient && is_object($thisclient) && $thisclient->isValid()
+                        && !$thisclient->isGuest()) {?>
+                            <li class="dropdown nav-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <i class="material-icons">perm_identity</i><?php echo Format::htmlchars($thisclient->getName()).'&nbsp;|';?>
+                                </a>
+                                <div class="dropdown-menu dropdown-with-icons">
+                                    <a href="<?php echo ROOT_PATH; ?>profile.php" class="dropdown-item"><?php echo __('Profile'); ?></a> |
+                                    <a href="<?php echo ROOT_PATH; ?>tickets.php" class="dropdown-item"><?php echo sprintf(__('Tickets <b>(%d)</b>'), $thisclient->getNumTickets()); ?></a> -
+                                    <a href="<?php echo $signout_url; ?>" class="dropdown-item"><?php echo __('Sign Out'); ?></a>
+                                </div>
+                            </li>
+                        <?php
+                        } elseif($nav) {
+                            if ($cfg->getClientRegistrationMode() == 'public') { ?>
+                                <li class="dropdown nav-item">
+                                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                        <i class="material-icons">perm_identity</i><?php echo __('Guest User'); ?>
+                                    </a>
+                                <?php
+                            }
+                            if ($thisclient && $thisclient->isValid() && $thisclient->isGuest()) { ?>
+                                <div class="dropdown-menu dropdown-with-icons">
+                                    <a href="<?php echo $signout_url; ?>" class="dropdown-item"><?php echo __('Sign Out'); ?></a><
+                                </div>
+                                </li><?php
+                            }
+                            elseif ($cfg->getClientRegistrationMode() != 'disabled') { ?>
+                                <div class="dropdown-menu dropdown-with-icons">
+                                    <a href="<?php echo $signin_url; ?>"><?php echo __('Sign In'); ?></a>
+                                </div>
+                                </li>
+                            <?php
+                            }
+                        } ?>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="page-header header-filter" data-parallax="true" style="background-image: url('<?php echo ROOT_PATH; ?>assets/MaterialOs/img/sky.jpg');"></div>
+    <div class="main main-raised">
     <div id="container">
         <div id="header">
             <div class="pull-right flush-right">
             <p>
-             <?php
-                if ($thisclient && is_object($thisclient) && $thisclient->isValid()
-                    && !$thisclient->isGuest()) {
-                 echo Format::htmlchars($thisclient->getName()).'&nbsp;|';
-                 ?>
-                <a href="<?php echo ROOT_PATH; ?>profile.php"><?php echo __('Profile'); ?></a> |
-                <a href="<?php echo ROOT_PATH; ?>tickets.php"><?php echo sprintf(__('Tickets <b>(%d)</b>'), $thisclient->getNumTickets()); ?></a> -
-                <a href="<?php echo $signout_url; ?>"><?php echo __('Sign Out'); ?></a>
-            <?php
-            } elseif($nav) {
-                if ($cfg->getClientRegistrationMode() == 'public') { ?>
-                    <?php echo __('Guest User'); ?> | <?php
-                }
-                if ($thisclient && $thisclient->isValid() && $thisclient->isGuest()) { ?>
-                    <a href="<?php echo $signout_url; ?>"><?php echo __('Sign Out'); ?></a><?php
-                }
-                elseif ($cfg->getClientRegistrationMode() != 'disabled') { ?>
-                    <a href="<?php echo $signin_url; ?>"><?php echo __('Sign In'); ?></a>
-<?php
-                }
+        <?php
+        if (($all_langs = Internationalization::getConfiguredSystemLanguages())
+            && (count($all_langs) > 1)
+            ) {
+                $qs = array();
+                parse_str($_SERVER['QUERY_STRING'], $qs);
+                foreach ($all_langs as $code=>$info) {
+                    list($lang, $locale) = explode('_', $code);
+                    $qs['lang'] = $code;
+                ?>
+                    <a class="flag flag-<?php echo strtolower($locale ?: $info['flag'] ?: $lang); ?>"
+                    href="?<?php echo http_build_query($qs);
+                    ?>" title="<?php echo Internationalization::getLanguageDescription($code); ?>">&nbsp;</a>
+                <?php }
             } ?>
-            </p>
-            <p>
-<?php
-if (($all_langs = Internationalization::getConfiguredSystemLanguages())
-    && (count($all_langs) > 1)
-) {
-    $qs = array();
-    parse_str($_SERVER['QUERY_STRING'], $qs);
-    foreach ($all_langs as $code=>$info) {
-        list($lang, $locale) = explode('_', $code);
-        $qs['lang'] = $code;
-?>
-        <a class="flag flag-<?php echo strtolower($locale ?: $info['flag'] ?: $lang); ?>"
-            href="?<?php echo http_build_query($qs);
-            ?>" title="<?php echo Internationalization::getLanguageDescription($code); ?>">&nbsp;</a>
-<?php }
-} ?>
             </p>
             </div>
-            <a class="pull-left" id="logo" href="<?php echo ROOT_PATH; ?>index.php"
-            title="<?php echo __('Support Center'); ?>">
-                <span class="valign-helper"></span>
-                <img src="<?php echo ROOT_PATH; ?>logo.php" border=0 alt="<?php
-                echo $ost->getConfig()->getTitle(); ?>">
-            </a>
         </div>
-        <div class="clear"></div>
-        <?php
-        if($nav){ ?>
-        <ul id="nav" class="flush-left">
-            <?php
-            if($nav && ($navs=$nav->getNavLinks()) && is_array($navs)){
-                foreach($navs as $name =>$nav) {
-                    echo sprintf('<li><a class="%s %s" href="%s">%s</a></li>%s',$nav['active']?'active':'',$name,(ROOT_PATH.$nav['href']),$nav['desc'],"\n");
-                }
-            } ?>
-        </ul>
-        <?php
-        }else{ ?>
-         <hr>
-        <?php
-        } ?>
         <div id="content">
 
          <?php if($errors['err']) { ?>
