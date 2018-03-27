@@ -3,7 +3,7 @@
     <footer class="footer ">
         <div class="container">
             <div class="copyright pull-left">
-               MaterialOs Theme for Osticket Based in <a href="https://www.creative-tim.com/product/material-kit" target="_blank">MaterialKit</a>
+               MaterialOs Theme for Osticket Based on <a href="https://www.creative-tim.com/product/material-kit" target="_blank">MaterialKit</a>
             </div>
             <div class="copyright pull-right">
                 &copy;

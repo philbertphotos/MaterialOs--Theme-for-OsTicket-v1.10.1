@@ -30,7 +30,7 @@ if ($lang) {
     <meta name="keywords" content="osTicket, Customer support system, support ticket system">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="<?php echo ROOT_PATH; ?>css/osticket.css?9ae093d" media="screen"/>
-    <link rel="stylesheet" href="<?php echo ASSETS_PATH; ?>css/theme.css?9ae093d" media="screen"/>
+    <!--<link rel="stylesheet" href="<?php echo ASSETS_PATH; ?>css/theme.css?9ae093d" media="screen"/>-->
     <link rel="stylesheet" href="<?php echo ASSETS_PATH; ?>css/print.css?9ae093d" media="print"/>
     <link rel="stylesheet" href="<?php echo ROOT_PATH; ?>scp/css/typeahead.css?9ae093d"
          media="screen" />
@@ -170,7 +170,7 @@ if ($lang) {
         </div>
     </nav>
     <!--Custom Parallax header -->
-    <div class="page-header header-filter clear-filter purple-filter" data-parallax="true" style="background-image: url('<?php echo ROOT_PATH; ?>assets/MaterialOs/img/sky.jpg');">
+    <div class="page-header header-filter clear-filter red-filter" data-parallax="true" style="background-image: url('<?php echo ROOT_PATH; ?>assets/MaterialOs/img/sky.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">
@@ -184,7 +184,7 @@ if ($lang) {
     </div>
     <!--End-->
     <div class="main main-raised">
-        <div id="container">
+        <div id="container" class="container">
          <?php if($errors['err']) { ?>
             <div id="msg_error"><?php echo $errors['err']; ?></div>
          <?php }elseif($msg) { ?>

@@ -20,30 +20,33 @@ require_once INCLUDE_DIR . 'class.page.php';
 $section = 'home';
 require(CLIENTINC_DIR.'header.inc.php');
 ?>
-<div id="landing_page">
-<?php include CLIENTINC_DIR.'templates/sidebar.tmpl.php'; ?>
-<div class="main-content">
-<?php
-if ($cfg && $cfg->isKnowledgebaseEnabled()) { ?>
-<div class="search-form">
-    <form method="get" action="kb/faq.php">
-    <input type="hidden" name="a" value="search"/>
-    <input type="text" name="q" class="search" placeholder="<?php echo __('Search our knowledge base'); ?>"/>
-    <button type="submit" class="green button"><?php echo __('Search'); ?></button>
-    </form>
-</div>
-    <div class="thread-body">
-<?php
-}
-    if($cfg && ($page = $cfg->getLandingPage()))
-        echo $page->getBodyWithImages();
-    else
-        echo  '<h1>'.__('Welcome to the Support Center').'</h1>';
-    ?>
+<div class="section text-center">
+    <div class="row">
+        <div class="col-md-8 ml-auto mr-auto">
+            <?php if($cfg && ($page = $cfg->getLandingPage()))
+                echo $page->getBodyWithImages();
+            else
+                echo  '<h2 class="title">'.__('Welcome to the Support Center').'</h2>';
+            ?>
+        </div>
     </div>
 </div>
+<div class="features">
+    <?php include CLIENTINC_DIR.'templates/sidebar.tmpl.php'; ?>
+    <?php
+    if ($cfg && $cfg->isKnowledgebaseEnabled()) { ?>
+        <div class="search-form">
+            <form method="get" action="kb/faq.php">
+                <input type="hidden" name="a" value="search"/>
+                <input type="text" name="q" class="search" placeholder="<?php echo __('Search our knowledge base'); ?>"/>
+                <button type="submit" class="green button"><?php echo __('Search'); ?></button>
+            </form>
+        </div>
+        <div class="thread-body">
+        <?php
+    }?>
+</div>
 <div class="clear"></div>
-
 <div>
 <?php
 if($cfg && $cfg->isKnowledgebaseEnabled()){
@@ -77,6 +80,4 @@ if ($cats->all()) { ?>
 }
 ?>
 </div>
-</div>
-
 <?php require(CLIENTINC_DIR.'footer.inc.php'); ?>

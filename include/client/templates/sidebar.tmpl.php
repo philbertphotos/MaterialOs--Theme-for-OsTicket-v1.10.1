@@ -1,23 +1,35 @@
 <?php
 $BUTTONS = isset($BUTTONS) ? $BUTTONS : true;
 ?>
-    <div class="sidebar pull-right">
-<?php if ($BUTTONS) { ?>
-        <div class="front-page-button flush-right">
-<p>
-<?php
-    if ($cfg->getClientRegistrationMode() != 'disabled'
-        || !$cfg->isClientLoginRequired()) { ?>
-            <a href="open.php" style="display:block" class="blue button"><?php
-                echo __('Open a New Ticket');?></a>
-</p>
-<?php } ?>
-<p>
-            <a href="view.php" style="display:block" class="green button"><?php
-                echo __('Check Ticket Status');?></a>
-</p>
-        </div>
-<?php } ?>
+    <div class="row">
+        <?php if ($BUTTONS) { ?>
+            <?php
+            if ($cfg->getClientRegistrationMode() != 'disabled'
+                || !$cfg->isClientLoginRequired()) { ?>
+                <div class="col">
+                    <div class="card card-nav-tabs">
+                        <h4 class="card-header card-header-info"><?php echo __('Open a New Ticket');?></h4>
+                        <div class="card-body">
+                            <h4 class="card-title">Special title treatment</h4>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="open.php" class="btn btn-primary"><?php
+                            echo __('Open a New Ticket');?></a>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+            <div class="col">
+                <div class="card card-nav-tabs">
+                    <h4 class="card-header card-header-warning"><?php echo _('Check Ticket Status');?></h4>
+                    <div class="card-body">
+                        <h4 class="card-title">Special title treatment</h4>
+                        <p class="card-text">With custom support text below</p>
+                        <a href="view.php" class="btn btn-danger"><?php
+                            echo __('Check Ticket Status');?></a>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
         <div class="content"><?php
     $faqs = FAQ::getFeatured()->select_related('category')->limit(5);
     if ($faqs->all()) { ?>
