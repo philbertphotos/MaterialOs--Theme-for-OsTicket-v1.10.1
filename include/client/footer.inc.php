@@ -1,10 +1,17 @@
         </div>
     </div>
-    </div>
-    <div id="footer">
-        <p>Copyright &copy; <?php echo date('Y'); ?> <?php echo (string) $ost->company ?: 'osTicket.com'; ?> - All rights reserved.</p>
-        <a id="poweredBy" href="http://osticket.com" target="_blank"><?php echo __('Helpdesk software - powered by osTicket'); ?></a>
-    </div>
+    <footer class="footer ">
+        <div class="container">
+            <div class="copyright pull-left">
+               MaterialOs Theme for Osticket Based in <a href="https://www.creative-tim.com/product/material-kit" target="_blank">MaterialKit</a>
+            </div>
+            <div class="copyright pull-right">
+                &copy;
+                <?php echo date('Y'); ?> <?php echo (string) $ost->company ?: 'osTicket.com'; ?> - All rights reserved.
+                <a id="poweredBy" href="http://osticket.com" target="_blank"><?php echo __('Helpdesk software - powered by osTicket'); ?></a>
+            </div>
+        </div>
+    </footer>
 <div id="overlay"></div>
 <div id="loading">
     <h4><?php echo __('Please Wait!');?></h4>
@@ -23,7 +30,7 @@ if (($lang = Internationalization::getCurrentLanguage()) && $lang != 'en_US') { 
     ?>);
 </script>
  <!--   Core JS Files   -->
- <script src="<?php echo ROOT_PATH; ?>assets/MaterialOs/js/core/jquery.min.js"></script>
+    <script src="<?php echo ROOT_PATH; ?>assets/MaterialOs/js/core/jquery.min.js"></script>
     <script src="<?php echo ROOT_PATH; ?>assets/MaterialOs/js/core/popper.min.js"></script>
     <script src="<?php echo ROOT_PATH; ?>assets/MaterialOs/js/bootstrap-material-design.js"></script>
     <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->

@@ -142,36 +142,49 @@ if ($lang) {
                             <?php
                             }
                         } ?>
+                        <?php
+                        if (($all_langs = Internationalization::getConfiguredSystemLanguages())
+                            && (count($all_langs) > 1)
+                            ) {?>
+                                <li class="dropdown nav-item">
+                                    <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">
+                                        <i class="material-icons">language</i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-with-icons">
+                                        <?php 
+                                        $qs = array();
+                                        parse_str($_SERVER['QUERY_STRING'], $qs);
+                                        foreach ($all_langs as $code=>$info) {
+                                            list($lang, $locale) = explode('_', $code);
+                                            $qs['lang'] = $code;
+                                            ?>
+                                            <a class="flag flag-<?php echo strtolower($locale ?: $info['flag'] ?: $lang); ?>"
+                                            href="?<?php echo http_build_query($qs);
+                                            ?>" title="<?php echo Internationalization::getLanguageDescription($code); ?>">&nbsp;</a>
+                                        <?php } ?>
+                                    </div>
+                                </li>
+                            <?php } ?>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="page-header header-filter" data-parallax="true" style="background-image: url('<?php echo ROOT_PATH; ?>assets/MaterialOs/img/sky.jpg');"></div>
-    <div class="main main-raised">
-    <div id="container">
-        <div id="header">
-            <div class="pull-right flush-right">
-            <p>
-        <?php
-        if (($all_langs = Internationalization::getConfiguredSystemLanguages())
-            && (count($all_langs) > 1)
-            ) {
-                $qs = array();
-                parse_str($_SERVER['QUERY_STRING'], $qs);
-                foreach ($all_langs as $code=>$info) {
-                    list($lang, $locale) = explode('_', $code);
-                    $qs['lang'] = $code;
-                ?>
-                    <a class="flag flag-<?php echo strtolower($locale ?: $info['flag'] ?: $lang); ?>"
-                    href="?<?php echo http_build_query($qs);
-                    ?>" title="<?php echo Internationalization::getLanguageDescription($code); ?>">&nbsp;</a>
-                <?php }
-            } ?>
-            </p>
+    <!--Custom Parallax header -->
+    <div class="page-header header-filter clear-filter purple-filter" data-parallax="true" style="background-image: url('<?php echo ROOT_PATH; ?>assets/MaterialOs/img/sky.jpg');">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <div class="brand">
+                        <h1 class="text-center">MaterialOs.</h1>
+                        <h3 class="text-center">A Badass OsTicket theme based on MaterialKit.</h3>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="content">
-
+    </div>
+    <!--End-->
+    <div class="main main-raised">
+        <div id="container">
          <?php if($errors['err']) { ?>
             <div id="msg_error"><?php echo $errors['err']; ?></div>
          <?php }elseif($msg) { ?>
