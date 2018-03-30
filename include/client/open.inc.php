@@ -64,7 +64,8 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
                         </td></tr>
                         <tr>
                             <td colspan="2">
-                                <select id="topicId" name="topicId" onchange="javascript:
+                                <div class="form-group">
+                                <select class="form-control" id="topicId" name="topicId" onchange="javascript:
                                     var data = $(':input[name]', '#dynamic-form').serialize();
                                     $.ajax(
                                     'ajax.php/form/help-topic/' + this.value,
@@ -89,6 +90,7 @@ if ($info['topicId'] && ($topic=Topic::lookup($info['topicId']))) {
                                     } ?>
                                 </select>
                                 <font class="error">*&nbsp;<?php echo $errors['topicId']; ?></font>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

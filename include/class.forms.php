@@ -3337,14 +3337,15 @@ class PhoneNumberWidget extends Widget {
         $config = $this->field->getConfiguration();
         list($phone, $ext) = explode("X", $this->value);
         ?>
-        <input class="form-control" id="<?php echo $this->id; ?>" type="tel" name="<?php echo $this->name; ?>" value="<?php
-        echo Format::htmlchars($phone); ?>"/><?php
-        // Allow display of extension field even if disabled if the phone
-        // number being edited has an extension
-        if ($ext || $config['ext']) { ?> <?php echo __('Ext'); ?>:
-            <input class="form-control" type="text" name="<?php
-            echo $this->name; ?>-ext" value="<?php echo Format::htmlchars($ext);
-                ?>" size="5"/>
+            <input class="form-control" id="<?php echo $this->id; ?>" type="tel" name="<?php echo $this->name; ?>" value="<?php
+            echo Format::htmlchars($phone); ?>"/></div><?php
+            // Allow display of extension field even if disabled if the phone
+            // number being edited has an extension
+            if ($ext || $config['ext']) { ?> <div class="form-group col-md-4"><label for="inputext"><?php echo __('Ext'); ?>:</label>
+                <input class="form-control" type="text" name="<?php
+                echo $this->name; ?>-ext" value="<?php echo Format::htmlchars($ext);
+                    ?>" size="5"/></div>
+        </div>
         <?php }
     }
 

@@ -24,6 +24,14 @@
         ?>
         <tr>
             <td colspan="2" style="padding-top:10px;">
+            <div class="form-group">
+                <?php
+                    $var1= (string)$field->get('type');
+                    $var2= 'phone'; 
+                    if ($var1 == $var2 ){ ?>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                <?php }?>
             <?php if (!$field->isBlockLevel()) { ?>
                 <label for="<?php echo $field->getFormName(); ?>"><span class="<?php
                     if ($field->isRequiredForUsers()) echo 'required'; ?>">
@@ -37,16 +45,17 @@
                         echo Format::viewableImages($field->getLocal('hint')); ?></em>
                 <?php
                 } ?>
-            <br/>
+            <br/></label>
             <?php
             }
             $field->render(array('client'=>true));
-            ?></label><?php
+            ?><?php
             foreach ($field->errors() as $e) { ?>
                 <div class="error"><?php echo $e; ?></div>
             <?php }
             $field->renderExtras(array('client'=>true));
             ?>
+            </div>
             </td>
         </tr>
         <?php
