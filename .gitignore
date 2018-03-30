@@ -116,7 +116,6 @@ include/class.file.php
 include/class.filter.php
 include/class.filter_action.php
 include/class.format.php
-include/class.forms.php
 include/class.http.php
 include/class.i18n.php
 include/class.import.php
@@ -219,3 +218,4 @@ css/ui-lightness/images/ui-icons_222222_256x240.png
 css/ui-lightness/images/ui-icons_228ef1_256x240.png
 css/ui-lightness/images/ui-icons_ef8c08_256x240.png
 css/ui-lightness/images/ui-icons_ffffff_256x240.png
+.vscode/settings.json

@@ -77,6 +77,7 @@ else
 </div>
 <div class="section text-center">
     <div class="row">
+        <div class="col-md-8 ml-auto mr-auto">
         <?php
         if ($cfg->getClientRegistrationMode() != 'disabled'
             || !$cfg->isClientLoginRequired()) {
@@ -84,5 +85,6 @@ else
             __("If this is your first time contacting us or you've lost the ticket number, please %s open a new ticket %s"),
                 '<a href="open.php">','</a>');
         } ?>
+        </div>
     </div>
 </div>
